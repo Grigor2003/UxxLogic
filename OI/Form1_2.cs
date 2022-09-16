@@ -17,10 +17,12 @@ namespace OI
             button3.Width = panel1.Width / 3;
         }
 
-        private void update_move()
+        private string update_move()
         {
             Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
             currWord = data.Next();
+            sw.Stop();
             UxxType uxx = currWord.Type;
 
             textBox1.Text = currWord.C;
@@ -36,10 +38,13 @@ namespace OI
                 button2.Text = "";
                 button3.Text = uxx.Variants[1];
             }
+            return sw.Elapsed.TotalMilliseconds.ToString();
         }
 
         private void move_maked(int answer = -1)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
             UxxType uxx = currWord.Type;
             bool is_right;
             if (uxx.Variants.Count() > 2)
@@ -51,13 +56,21 @@ namespace OI
                 is_right = currWord.Answer == answer || (answer == 2 && currWord.Answer == 1);
             }
             currWord.Effect(is_right);
-            log(currWord);
+            sw.Stop();
+            log(currWord,
+                "next: " + update_move(),
+                "right: " + sw.Elapsed.TotalMilliseconds);
         }
 
-        private void log(object row)
+        private void log(params object[] row)
         {
-            listBox1.Items.Insert(0, DateTime.Now.ToString() + "| " +
-                            row.ToString());
+            StringBuilder text = new StringBuilder();
+            text.Append(DateTime.Now.ToString("mm:ss.ff"));
+            text.Append("| ");
+
+            text.Append(string.Join(", ", row));
+
+            listBox1.Items.Insert(0, text.ToString());
         }
     }
 }

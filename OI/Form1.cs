@@ -10,8 +10,8 @@ namespace OI
 
         public Form1()
         {
-            data = new DataProcess("data");
             InitializeComponent();
+            data = new DataProcess("data");
             this.resize_buttons();
             update_move();
             foreach (var item in data)
@@ -23,19 +23,16 @@ namespace OI
         private void button1_Click(object sender, EventArgs e)
         {
             this.move_maked(0);
-            update_move();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.move_maked(1);
-            update_move();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             this.move_maked(2);
-            update_move();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -57,9 +54,12 @@ namespace OI
             }
             if (mask.Contains(true))
             {
+                Stopwatch sw = Stopwatch.StartNew();
+                sw.Start();
                 if (data.SetMask(mask))
                 {
-                    log(String.Join(", ", data));
+                    sw.Stop();
+                    log(String.Join(", ", data), sw.Elapsed.TotalMilliseconds);
                     if (!data.Contains(currWord.Type))
                     {
                         update_move();
@@ -75,7 +75,7 @@ namespace OI
             stopwatch.Start();
             data.Save("dataSave");
             stopwatch.Stop();
-            log("Saved " + stopwatch.ElapsedMilliseconds + "milisec");
+            log("save: " + stopwatch.Elapsed.TotalMilliseconds);
         }
     }
 }

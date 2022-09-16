@@ -151,12 +151,12 @@
             // 
             this.listBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Enabled = false;
             this.listBox1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 35;
             this.listBox1.Location = new System.Drawing.Point(290, 98);
             this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBox1.Size = new System.Drawing.Size(603, 227);
             this.listBox1.TabIndex = 4;
             this.listBox1.TabStop = false;
